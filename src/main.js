@@ -1,45 +1,35 @@
-// import iziToast from 'izitoast';
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
-// import 'izitoast/dist/css/iziToast.min.css';
-// import { fetchData } from './pixabay-api';
-// import { renderGallery, clearGallery, initializeLightbox, showError } from './render-functions';
+import { searchImages } from './js/pixabay-api.js';
+import { renderGallery } from './js/render-functions.js';
 
-// const searchForm = document.getElementById('searchForm');
-// const loader = document.getElementById('loader');
+const searchForm = document.getElementById('searchForm');
+const searchInput = document.getElementById('searchInput');
+const loader = document.getElementById('loader');
+const gallery = document.getElementById('gallery');
 
-// searchForm.addEventListener('submit', async function (event) {
-//   event.preventDefault();
+searchForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.trim();
 
-//   const searchTerm = document.getElementById('searchInput').value.trim();
+    if (searchTerm === '') {
+        iziToast.error({
+            title: 'Error',
+            message: 'Please enter a search term'
+        });
+        return;
+    }
 
-//   if (searchTerm === '') {
-//     showError('Please enter a search term.');
-//     return;
-//   }
+    loader.style.display = 'block';
+    gallery.innerHTML = '';
 
-//   clearGallery();
-//   showLoader();
-
-//   try {
-//     const data = await fetchData(searchTerm);
-
-//     if (data.hits.length === 0) {
-//       showError('Sorry, there are no images matching your search query. Please try again.');
-//     } else {
-//       renderGallery(data.hits);
-//     }
-//   } catch (error) {
-//     showError('An error occurred while fetching images. Please try again.');
-//   } finally {
-//     hideLoader();
-//   }
-// });
-
-// function showLoader() {
-//   loader.style.display = 'block';
-// }
-
-// function hideLoader() {
-//   loader.style.display = 'none';
-// }
+    try {
+        const images = await searchImages(searchTerm);
+        renderGallery(images);
+    } catch (error) {
+        loader.style.display = 'none';
+        console.error('Error fetching data:', error);
+        iziToast.error({
+            title: 'Error',
+            message: 'An error occurred while fetching data. Please try again.'
+        });
+    }
+});

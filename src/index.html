@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link
       rel="stylesheet"
-      href="node_modules/izitoast/dist/css/iziToast.min.css"
+      href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css"
     />
     <link
       rel="stylesheet"
-      href="node_modules/simplelightbox/dist/simple-lightbox.min.css"
+      href="https://cdn.jsdelivr.net/npm/simplelightbox@2.7.0/dist/simple-lightbox.min.css"
     />
   </head>
   <body>
@@ -28,8 +28,16 @@
       <div id="gallery" class="gallery"></div>
     </div>
 
-    <script src="node_modules/izitoast/dist/js/iziToast.min.js"></script>
-    <script src="node_modules/simplelightbox/dist/simple-lightbox.min.js"></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/simplelightbox@2.7.0/dist/simple-lightbox.min.js"
+    ></script>
     <script type="module" src="./js/pixabay-api.js"></script>
+    <script type="module" src="./js/render-functions.js"></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
